@@ -1,0 +1,771 @@
+/* AuraCalc - Custom Design System & CSS Stylesheet */
+
+/* ==========================================================================
+   CSS Custom Properties (Variables)
+   ========================================================================== */
+:root {
+    /* Fonts */
+    --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    /* Layout */
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --border-radius-sm: 10px;
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Shadows & Glows */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    /* Dark Theme Default Values */
+    --bg-app: #080b11;
+    --card-bg: rgba(15, 22, 36, 0.65);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    
+    /* Keypad - Dark Theme */
+    --key-num-bg: rgba(255, 255, 255, 0.05);
+    --key-num-bg-hover: rgba(255, 255, 255, 0.1);
+    --key-num-text: #f3f4f6;
+    
+    --key-operator-bg: rgba(99, 102, 241, 0.15);
+    --key-operator-bg-hover: rgba(99, 102, 241, 0.3);
+    --key-operator-text: #818cf8;
+    --key-operator-glow: rgba(99, 102, 241, 0.3);
+    
+    --key-util-bg: rgba(20, 184, 166, 0.1);
+    --key-util-bg-hover: rgba(20, 184, 166, 0.2);
+    --key-util-text: #2dd4bf;
+    
+    --key-sci-bg: rgba(139, 92, 246, 0.08);
+    --key-sci-bg-hover: rgba(139, 92, 246, 0.2);
+    --key-sci-text: #a78bfa;
+    
+    --key-equal-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --key-equal-bg-hover: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+    --key-equal-text: #ffffff;
+    --key-equal-glow: rgba(168, 85, 247, 0.4);
+
+    --header-btn-bg: rgba(255, 255, 255, 0.03);
+    --header-btn-bg-hover: rgba(255, 255, 255, 0.08);
+    --header-btn-border: rgba(255, 255, 255, 0.05);
+
+    /* Background blobs - Dark Theme */
+    --blob-1-color: rgba(99, 102, 241, 0.15);
+    --blob-2-color: rgba(236, 72, 153, 0.12);
+    --blob-3-color: rgba(20, 184, 166, 0.12);
+}
+
+/* Light Theme Variables */
+body.light-theme {
+    --bg-app: #f4f6fb;
+    --card-bg: rgba(255, 255, 255, 0.65);
+    --card-border: rgba(0, 0, 0, 0.06);
+    --card-shadow: 0 20px 40px rgba(99, 102, 241, 0.08);
+    
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    
+    /* Keypad - Light Theme */
+    --key-num-bg: rgba(0, 0, 0, 0.03);
+    --key-num-bg-hover: rgba(0, 0, 0, 0.06);
+    --key-num-text: #1f2937;
+    
+    --key-operator-bg: rgba(79, 70, 229, 0.08);
+    --key-operator-bg-hover: rgba(79, 70, 229, 0.15);
+    --key-operator-text: #4f46e5;
+    --key-operator-glow: rgba(79, 70, 229, 0.15);
+    
+    --key-util-bg: rgba(13, 148, 136, 0.08);
+    --key-util-bg-hover: rgba(13, 148, 136, 0.15);
+    --key-util-text: #0d9488;
+    
+    --key-sci-bg: rgba(109, 40, 217, 0.05);
+    --key-sci-bg-hover: rgba(109, 40, 217, 0.12);
+    --key-sci-text: #6d28d9;
+    
+    --key-equal-bg: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 50%, #d946ef 100%);
+    --key-equal-bg-hover: linear-gradient(135deg, #3730a3 0%, #6d28d9 50%, #b027b0 100%);
+    --key-equal-text: #ffffff;
+    --key-equal-glow: rgba(139, 92, 246, 0.25);
+
+    --header-btn-bg: rgba(0, 0, 0, 0.02);
+    --header-btn-bg-hover: rgba(0, 0, 0, 0.05);
+    --header-btn-border: rgba(0, 0, 0, 0.04);
+
+    /* Background blobs - Light Theme */
+    --blob-1-color: rgba(99, 102, 241, 0.08);
+    --blob-2-color: rgba(236, 72, 153, 0.06);
+    --blob-3-color: rgba(20, 184, 166, 0.06);
+}
+
+/* ==========================================================================
+   Global Reset & Base Styles
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+    transition: background-color var(--transition-slow);
+}
+
+/* Animated Ambient Blobs */
+.background-blobs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    mix-blend-mode: multiply;
+    animation: blob-float 20s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+    top: 10%;
+    left: 15%;
+    width: 400px;
+    height: 400px;
+    background-color: var(--blob-1-color);
+    animation-duration: 25s;
+}
+
+.blob-2 {
+    bottom: 15%;
+    right: 15%;
+    width: 450px;
+    height: 450px;
+    background-color: var(--blob-2-color);
+    animation-duration: 30s;
+    animation-delay: 2s;
+}
+
+.blob-3 {
+    top: 50%;
+    left: 60%;
+    width: 350px;
+    height: 350px;
+    background-color: var(--blob-3-color);
+    animation-duration: 20s;
+    animation-delay: 4s;
+}
+
+@keyframes blob-float {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+/* ==========================================================================
+   Layout Containers
+   ========================================================================== */
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    transition: max-width var(--transition-normal);
+}
+
+/* Responsive layout shifts when history drawer is active on wider screens */
+@media (min-width: 768px) {
+    body {
+        padding: 40px;
+    }
+    
+    .app-container.history-active {
+        max-width: 760px;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        grid-template-rows: auto 1fr;
+        align-items: start;
+    }
+    
+    .app-container.history-active .app-header {
+        grid-column: 1 / -1;
+    }
+    
+    .app-container.history-active .calculator-card {
+        grid-column: 1;
+    }
+    
+    .app-container.history-active .history-panel {
+        grid-column: 2;
+        grid-row: 2;
+        height: 100%;
+        max-height: 610px; /* Aligns with standard + sci keypad heights */
+    }
+}
+
+/* Header & Controls */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #818cf8 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.controls-group {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-sm);
+    background-color: var(--header-btn-bg);
+    border: 1px solid var(--header-btn-border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.icon-btn:hover {
+    color: var(--text-primary);
+    background-color: var(--header-btn-bg-hover);
+    transform: translateY(-2px);
+}
+
+.icon-btn:active {
+    transform: translateY(0);
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.icon.hidden {
+    display: none;
+}
+
+/* ==========================================================================
+   Calculator Card Design (Glassmorphism)
+   ========================================================================== */
+.calculator-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--border-radius-lg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color var(--transition-slow), border var(--transition-slow), box-shadow var(--transition-slow);
+}
+
+/* Subtle gloss reflection overlay */
+.calculator-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 50%);
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Mode Selector Switch */
+.mode-selector {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 4px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+body.light-theme .mode-selector {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mode-tab {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-radius: calc(var(--border-radius-sm) - 2px);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.mode-tab:hover {
+    color: var(--text-primary);
+}
+
+.mode-tab.active {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-sm);
+}
+
+body.light-theme .mode-tab.active {
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* ==========================================================================
+   Calculator Display Area
+   ========================================================================== */
+.display-container {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius-md);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    min-height: 120px;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    position: relative;
+}
+
+body.light-theme .display-container {
+    background-color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+/* Math Expression Line */
+.expression-line-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-align: right;
+    scrollbar-width: none; /* Firefox */
+}
+
+.expression-line-wrapper::-webkit-scrollbar {
+    display: none; /* Safari/Chrome */
+}
+
+.expression-display {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    word-break: break-all;
+}
+
+/* Current Input Line with Copy */
+.input-line-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.input-display {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    word-break: break-all;
+    text-align: right;
+    flex-grow: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+}
+
+.input-display::-webkit-scrollbar {
+    display: none;
+}
+
+/* Copy Button styles */
+.copy-btn {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.copy-btn:hover {
+    color: var(--text-secondary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.light-theme .copy-btn:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.display-container:hover .copy-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.copy-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Clipboard Feedback Tooltip */
+.copy-tooltip {
+    position: absolute;
+    bottom: 110%;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.copy-tooltip.show {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Keypads & Buttons Grid
+   ========================================================================== */
+.keypad-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* General button keys styling */
+.key {
+    border: none;
+    outline: none;
+    height: 56px;
+    border-radius: var(--border-radius-md);
+    font-size: 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.key:active {
+    transform: scale(0.93);
+}
+
+/* Key Styles Mapping */
+.btn-num {
+    background-color: var(--key-num-bg);
+    color: var(--key-num-text);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.btn-num:hover {
+    background-color: var(--key-num-bg-hover);
+}
+
+.btn-operator {
+    background-color: var(--key-operator-bg);
+    color: var(--key-operator-text);
+}
+
+.btn-operator:hover {
+    background-color: var(--key-operator-bg-hover);
+    box-shadow: 0 0 12px var(--key-operator-glow);
+}
+
+.btn-util {
+    background-color: var(--key-util-bg);
+    color: var(--key-util-text);
+}
+
+.btn-util:hover {
+    background-color: var(--key-util-bg-hover);
+}
+
+.btn-sci {
+    background-color: var(--key-sci-bg);
+    color: var(--key-sci-text);
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.btn-sci:hover {
+    background-color: var(--key-sci-bg-hover);
+}
+
+.btn-sci sub, .btn-sci sup {
+    font-size: 0.65em;
+    vertical-align: baseline;
+    position: relative;
+}
+.btn-sci sup { top: -0.5em; }
+.btn-sci sub { bottom: -0.25em; }
+
+.btn-equal {
+    background: var(--key-equal-bg);
+    color: var(--key-equal-text);
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.btn-equal:hover {
+    background: var(--key-equal-bg-hover);
+    box-shadow: 0 0 20px var(--key-equal-glow);
+}
+
+/* Keypad Grids */
+.keypad-standard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.keypad-scientific {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-height: 300px;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1), opacity var(--transition-normal) ease, margin var(--transition-normal) ease;
+}
+
+/* Handle toggled Scientific layout height changes smoothly */
+.keypad-scientific.hidden-keypad {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Calculation History Panel
+   ========================================================================== */
+.history-panel {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--border-radius-lg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 400px;
+    height: auto;
+    transition: all var(--transition-normal);
+    overflow: hidden;
+}
+
+/* Mobile: slide drawer-like effect */
+@media (max-width: 767px) {
+    .history-panel {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        z-index: 100;
+        transform: translateY(100%);
+        max-height: 70vh;
+    }
+    
+    .history-panel.open {
+        transform: translateY(0);
+    }
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 12px;
+}
+
+body.light-theme .history-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.history-header h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: var(--key-operator-text);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.text-btn:hover {
+    color: var(--text-primary);
+}
+
+.history-list-container {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 4px;
+    scrollbar-width: thin;
+}
+
+.history-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.history-item {
+    text-align: right;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: var(--border-radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.history-item:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+body.light-theme .history-item:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.history-item-exp {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.history-item-exp::-webkit-scrollbar { display: none; }
+
+.history-item-res {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.history-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 40px 0;
+}
+
+/* History overlay for mobile */
+.history-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+}
+
+.history-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+/* Overlay and sidebar states for mobile logic default hide */
+@media (min-width: 768px) {
+    /* On desktop, if history is NOT active, hide it completely */
+    .app-container:not(.history-active) .history-panel {
+        display: none;
+    }
+}

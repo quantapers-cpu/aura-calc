@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium, feature-rich web calculator with standard and advanced modes, sound feedback, calculations history, and a modern glassmorphic design.">
+    <title>AuraCalc - Premium Web Calculator</title>
+    <!-- Outfit Font from Google Fonts for a modern, geometric look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="app-container" id="app-container">
+        <!-- Settings & Mode Control Bar -->
+        <header class="app-header">
+            <h1 class="logo">AuraCalc</h1>
+            <div class="controls-group">
+                <!-- Sound Toggle Button -->
+                <button id="btn-sound" class="icon-btn" title="Toggle Sound Feedback" aria-label="Toggle Sound">
+                    <svg class="icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <svg class="icon sound-off hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                </button>
+                <!-- Theme Toggle Button -->
+                <button id="btn-theme" class="icon-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+                    <svg class="icon theme-sun hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="icon theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <!-- History Toggle Button -->
+                <button id="btn-history-toggle" class="icon-btn" title="Show Calculation History" aria-label="Toggle History">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Calculator Container -->
+        <section class="calculator-card">
+            <!-- Mode Toggle Switch -->
+            <div class="mode-selector">
+                <button id="mode-std" class="mode-tab active" data-mode="std">Standard</button>
+                <button id="mode-adv" class="mode-tab" data-mode="adv">Scientific</button>
+            </div>
+
+            <!-- Display Area -->
+            <div class="display-container">
+                <div class="expression-line-wrapper">
+                    <span id="expression-display" class="expression-display"></span>
+                </div>
+                <div class="input-line-wrapper">
+                    <span id="input-display" class="input-display">0</span>
+                    <button id="btn-copy" class="copy-btn" title="Copy Result" aria-label="Copy Result">
+                        <svg class="icon copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="copy-tooltip">Copied!</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Keypads Container -->
+            <div class="keypad-container">
+                <!-- Advanced Keypad (Scientific Operations) -->
+                <div id="keypad-adv" class="keypad-scientific hidden-keypad">
+                    <button class="key btn-sci" data-val="sin" id="key-sin">sin</button>
+                    <button class="key btn-sci" data-val="cos" id="key-cos">cos</button>
+                    <button class="key btn-sci" data-val="tan" id="key-tan">tan</button>
+                    <button class="key btn-sci" data-val="pi" id="key-pi">π</button>
+                    
+                    <button class="key btn-sci" data-val="sqrt" id="key-sqrt">√</button>
+                    <button class="key btn-sci" data-val="pow" id="key-pow">x<sup>y</sup></button>
+                    <button class="key btn-sci" data-val="log" id="key-log">log</button>
+                    <button class="key btn-sci" data-val="e" id="key-e">e</button>
+
+                    <button class="key btn-sci" data-val="ln" id="key-ln">ln</button>
+                    <button class="key btn-sci" data-val="fact" id="key-fact">x!</button>
+                    <button class="key btn-sci" data-val="pow2" id="key-pow2">x²</button>
+                    <button class="key btn-sci" data-val="exp" id="key-exp">EXP</button>
+                </div>
+
+                <!-- Standard Keypad -->
+                <div class="keypad-standard">
+                    <!-- Row 1 -->
+                    <button class="key btn-util" data-val="clear" id="key-clear">C</button>
+                    <button class="key btn-util" data-val="backspace" id="key-backspace" title="Backspace" aria-label="Backspace">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                            <line x1="18" y1="9" x2="12" y2="15"></line>
+                            <line x1="12" y1="9" x2="18" y2="15"></line>
+                        </svg>
+                    </button>
+                    <button class="key btn-util" data-val="percent" id="key-percent">%</button>
+                    <button class="key btn-operator" data-val="div" id="key-div">÷</button>
+
+                    <!-- Row 2 -->
+                    <button class="key btn-num" data-val="7" id="key-7">7</button>
+                    <button class="key btn-num" data-val="8" id="key-8">8</button>
+                    <button class="key btn-num" data-val="9" id="key-9">9</button>
+                    <button class="key btn-operator" data-val="mul" id="key-mul">×</button>
+
+                    <!-- Row 3 -->
+                    <button class="key btn-num" data-val="4" id="key-4">4</button>
+                    <button class="key btn-num" data-val="5" id="key-5">5</button>
+                    <button class="key btn-num" data-val="6" id="key-6">6</button>
+                    <button class="key btn-operator" data-val="sub" id="key-sub">−</button>
+
+                    <!-- Row 4 -->
+                    <button class="key btn-num" data-val="1" id="key-1">1</button>
+                    <button class="key btn-num" data-val="2" id="key-2">2</button>
+                    <button class="key btn-num" data-val="3" id="key-3">3</button>
+                    <button class="key btn-operator" data-val="add" id="key-add">+</button>
+
+                    <!-- Row 5 -->
+                    <button class="key btn-util" data-val="negate" id="key-negate">±</button>
+                    <button class="key btn-num" data-val="0" id="key-0">0</button>
+                    <button class="key btn-num" data-val="decimal" id="key-decimal">.</button>
+                    <button class="key btn-equal" data-val="equal" id="key-equal">=</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculation History Drawer/Panel -->
+        <aside class="history-panel" id="history-panel">
+            <div class="history-header">
+                <h2>History</h2>
+                <button id="btn-clear-history" class="text-btn">Clear</button>
+            </div>
+            <div class="history-list-container">
+                <ul id="history-list" class="history-list">
+                    <!-- Dynamically populated -->
+                    <li class="history-empty">No calculations yet</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 AuraCalc. Designed for visually stunning calculations.</p>
+    </footer>
+
+    <!-- App Logic -->
+    <script src="app.js" defer></script>
+</body>
+</html>
